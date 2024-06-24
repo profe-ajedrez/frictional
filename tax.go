@@ -13,7 +13,7 @@ func (pt *Tax) Amount() alpacadecimal.Decimal {
 }
 
 func (pt *Tax) Ratio() alpacadecimal.Decimal {
-	return pt.amount
+	return pt.ratio
 }
 
 func (pt *Tax) Taxable() alpacadecimal.Decimal {
