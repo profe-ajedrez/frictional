@@ -14,9 +14,16 @@ type Discount struct {
 	amount alpacadecimal.Decimal
 }
 
+func (d *Discount) Ratio() alpacadecimal.Decimal {
+	return d.ratio
+}
+
+func (d *Discount) Amount() alpacadecimal.Decimal {
+	return d.amount
+}
+
 func (d *Discount) String() string {
 	w := strings.Builder{}
-	defer w.Reset()
 
 	w.WriteString("ratio: ")
 	w.WriteString(d.ratio.String())
@@ -49,7 +56,6 @@ type AmountDiscount struct {
 func NewAmountDiscount(amount alpacadecimal.Decimal) *AmountDiscount {
 	return &AmountDiscount{
 		Discount: Discount{
-			ratio:  Zero(),
 			amount: amount,
 		},
 	}

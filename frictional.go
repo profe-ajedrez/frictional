@@ -85,7 +85,6 @@ func (b *defaultFrictional) Reset() {
 
 func (b *defaultFrictional) String() string {
 	w := strings.Builder{}
-	defer w.Reset()
 
 	w.WriteString("buffer: ")
 	w.WriteString(b.buffer.String())
