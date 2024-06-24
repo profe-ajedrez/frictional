@@ -50,7 +50,7 @@ func BenchmarkCreateTaxe(b *testing.B) {
 
 	for i := 0; i <= b.N; i++ {
 		bg := NewFromUnitValue(entry)
-		taxOverEntryValue := NewPercentualTax(ratio)
+		taxOverEntryValue := NewPercTax(ratio)
 		bg.Bind(taxOverEntryValue)
 	}
 }
@@ -61,8 +61,8 @@ func BenchmarkTax(b *testing.B) {
 	ratio2 := unsafeDecFromStr("15")
 	qty := unsafeDecFromStr("10")
 
-	taxOverEntryValue := NewPercentualTax(ratio)
-	taxConsideringQty := NewPercentualTax(ratio2)
+	taxOverEntryValue := NewPercTax(ratio)
+	taxConsideringQty := NewPercTax(ratio2)
 
 	b.ResetTimer()
 
@@ -107,7 +107,7 @@ var testCasesTaxes = []struct {
 			ratio := alpacadecimal.NewFromInt32(10)
 
 			// Se crea el Evaluer con el ratio de impuesto indicado
-			t1 := NewPercentualTax(ratio)
+			t1 := NewPercTax(ratio)
 
 			// Se bindea para evaluación al Evaluer d1, que es un descuento porcentual
 			b.Bind(t1)
@@ -169,12 +169,12 @@ var testCasesTaxes = []struct {
 			b := NewFromUnitValue(entry)
 
 			ratio := unsafeDecFromStr("10")
-			taxOverEntryValue := NewPercentualTax(ratio)
+			taxOverEntryValue := NewPercTax(ratio)
 
 			b.Bind(taxOverEntryValue)
 
 			ratio = unsafeDecFromStr("15")
-			taxConsideringQty := NewPercentualTax(ratio)
+			taxConsideringQty := NewPercTax(ratio)
 
 			qty := unsafeDecFromStr("10")
 
@@ -213,7 +213,7 @@ var testCasesTaxes = []struct {
 			entry, _ := alpacadecimal.NewFromString("17.3475345")
 			b := NewFromUnitValue(entry)
 			ratio := alpacadecimal.NewFromInt32(10)
-			t1 := NewPercentualTax(ratio)
+			t1 := NewPercTax(ratio)
 
 			qty := udfs("5")
 			b.Bind(WithQTY(qty))
@@ -243,10 +243,10 @@ var testCasesTaxes = []struct {
 			entry, _ := alpacadecimal.NewFromString("100")
 			b := NewFromUnitValue(entry)
 			ratio1 := udfs("10")
-			t1 := NewPercentualTax(ratio1)
+			t1 := NewPercTax(ratio1)
 
 			ratio2 := udfs("5")
-			t2 := NewPercentualTax(ratio2)
+			t2 := NewPercTax(ratio2)
 
 			b.Bind(t1)
 			// this tax will be applied over the previous tax t1

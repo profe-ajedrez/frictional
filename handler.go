@@ -35,7 +35,7 @@ func NewTaxHandlerFromUnitValue() *TaxHandlerFromUnitValue {
 func (t *TaxHandlerFromUnitValue) Do(b Frictional) {
 	t.taxable = b.Buffer().Copy()
 
-	t1 := NewPercentualTax(t.totalRatio)
+	t1 := NewPercTax(t.totalRatio)
 
 	t2 := NewAmountTax(t.totalAmount)
 
