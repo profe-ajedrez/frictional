@@ -19,7 +19,7 @@ func NewPercentualUnTax(ratio alpacadecimal.Decimal) *PercentualUntax {
 
 func (pu *PercentualUntax) Do(b Frictional) {
 	ratio := pu.ratio.Div(HundredValue)
-	b.Div(One.Add(ratio))
+	b.set(b.Value().Div(One.Add(ratio)))
 	pu.amount = b.Value().Mul(ratio)
 }
 

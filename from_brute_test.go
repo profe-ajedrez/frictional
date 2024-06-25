@@ -154,25 +154,28 @@ func BenchmarkFromBrute(b *testing.B) {
 	brute := &SnapshotVisitor{}
 	net := &SnapshotVisitor{}
 	netWD := &SnapshotVisitor{}
-	round := NewRound(12)
 	tree := udfs("3")
 	sixteennineteenone := udfs("1619.1")
 	zero := udfs("0")
 	sixteen := udfs("16")
+
+	unitValue := NewUnitValue(tree)
+	bg := NewFromBruteDefault().WithBrute(sixteennineteenone)
+	disc := NewPercentualUnDiscount(zero)
+	tx := NewPercentualUnTax(sixteen)
+
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		unitValue := NewUnitValue(tree)
-		bg := NewFromBruteDefault().WithBrute(sixteennineteenone)
-		disc := NewPercentualUnDiscount(zero)
-		tx := NewPercentualUnTax(sixteen)
-
 		bg.Bind(brute)
 		bg.Bind(tx)
 		bg.Bind(net)
 		bg.Bind(disc)
 		bg.Bind(netWD)
 		bg.Bind(unitValue)
-		bg.Bind(round)
+
+		b.StopTimer()
+		bg.Restore(brute.Get().Copy())
+		b.StartTimer()
 	}
 }
