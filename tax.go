@@ -2,9 +2,9 @@ package frictional
 
 import "github.com/alpacahq/alpacadecimal"
 
-// Tax is a visitor that can be applied to a Frictional value.
-// this visitor when applied will calculate the taxes and add them to the frictional value
-// and will hold the ratio, the amount and the taxable values
+// Tax struct holds the components necessary for tax calculation on a Frictional value.
+// It includes the tax ratio, the tax amount, and the taxable base amount.
+// This struct is typically used as a visitor to apply tax calculations to a Frictional value.
 type Tax struct {
 	ratio   alpacadecimal.Decimal
 	amount  alpacadecimal.Decimal
