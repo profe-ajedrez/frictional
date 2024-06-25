@@ -35,11 +35,11 @@ func TestPercentualUntax(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			u := NewPercentualUnTax(tc.ratio)
 			u.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}
@@ -74,11 +74,11 @@ func TestAmountUntax(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			u := NewAmountUnTax(tc.amount)
 			u.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}

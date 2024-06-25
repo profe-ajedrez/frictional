@@ -79,11 +79,11 @@ func TestQtyDo(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			q := WithQTY(tc.qty)
 			q.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}
@@ -156,10 +156,10 @@ func TestUnitValueDo(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			q := NewUnitValue(tc.qty)
 			q.Do(b)
-			if !b.buffer.Equal(tc.expected) || !q.unitValue.Equal(tc.expected) {
+			if !b.value.Equal(tc.expected) || !q.unitValue.Equal(tc.expected) {
 				t.Errorf("Expected %v, got %v", tc.expected, q.unitValue)
 			}
 		})

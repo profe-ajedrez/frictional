@@ -75,11 +75,11 @@ func TestRoundDo(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			r := NewRound(tc.scale)
 			r.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}
@@ -116,7 +116,7 @@ func BenchmarkRoundDo(b *testing.B) {
 
 	for _, tc := range testCases {
 		b.Run(tc.name, func(b *testing.B) {
-			bg := &defaultFrictional{buffer: tc.initial}
+			bg := &DefaultFrictional{value: tc.initial}
 			r := NewRound(tc.scale)
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {

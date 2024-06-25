@@ -20,8 +20,8 @@ func TestTax(t *testing.T) {
 			t.FailNow()
 		}
 
-		if !shouldFail && !b.buffer.Equal(tc.expecteds.buffer) {
-			t.Logf("[FAIL test case %d %s] got frictional.buffer %v. Expected %v", i, tc.name, b.buffer, tc.expecteds.buffer)
+		if !shouldFail && !b.value.Equal(tc.expecteds.value) {
+			t.Logf("[FAIL test case %d %s] got frictional.buffer %v. Expected %v", i, tc.name, b.value, tc.expecteds.value)
 			t.FailNow()
 		}
 
@@ -121,9 +121,9 @@ var testCasesTaxes = []struct {
 			Tax
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
+				DefaultFrictional: &DefaultFrictional{
 					// expected buffer should be 90% of entryValue, because discount is 10%
-					buffer: udfs("17.3475345").Mul(udfs("1.1")),
+					value: udfs("17.3475345").Mul(udfs("1.1")),
 				},
 			},
 			Tax: Tax{
@@ -151,8 +151,8 @@ var testCasesTaxes = []struct {
 			Tax
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("109.8"),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("109.8"),
 				},
 			},
 			Tax: Tax{
@@ -196,8 +196,8 @@ var testCasesTaxes = []struct {
 			Tax
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: unsafeDecFromStr("1266.55595"),
+				DefaultFrictional: &DefaultFrictional{
+					value: unsafeDecFromStr("1266.55595"),
 				},
 			},
 			Tax: Tax{
@@ -226,8 +226,8 @@ var testCasesTaxes = []struct {
 			Tax
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("17.3475345").Mul(udfs("5")).Mul(udfs("1.1")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("17.3475345").Mul(udfs("5")).Mul(udfs("1.1")),
 				},
 			},
 			Tax: Tax{
@@ -259,8 +259,8 @@ var testCasesTaxes = []struct {
 			Tax
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("100").Mul(udfs("1.1")).Mul(udfs("1.05")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("100").Mul(udfs("1.1")).Mul(udfs("1.05")),
 				},
 			},
 			Tax: Tax{

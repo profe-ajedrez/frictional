@@ -41,11 +41,11 @@ func TestPercentualUndiscount(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			u := NewPercentualUnDiscount(tc.ratio)
 			u.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}
@@ -86,11 +86,11 @@ func TestAmountUndiscount(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			u := NewAmountUnDiscount(tc.amount)
 			u.Do(b)
-			if !b.buffer.Equal(tc.expected) {
-				t.Errorf("Expected %v, got %v", tc.expected, b.buffer)
+			if !b.value.Equal(tc.expected) {
+				t.Errorf("Expected %v, got %v", tc.expected, b.value)
 			}
 		})
 	}
@@ -124,7 +124,7 @@ func BenchmarkPercentualUndiscount(b *testing.B) {
 		b.Run(tc.name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				u := NewPercentualUnDiscount(tc.ratio)
-				bg := &defaultFrictional{buffer: tc.initial}
+				bg := &DefaultFrictional{value: tc.initial}
 				u.Do(bg)
 			}
 		})
@@ -157,7 +157,7 @@ func BenchmarkAmountUndiscount(b *testing.B) {
 
 	for _, tc := range testCases {
 		b.Run(tc.name, func(b *testing.B) {
-			bg := &defaultFrictional{buffer: tc.initial}
+			bg := &DefaultFrictional{value: tc.initial}
 			u := NewAmountUnDiscount(tc.amount)
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {

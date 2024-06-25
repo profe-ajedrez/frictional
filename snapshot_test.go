@@ -36,7 +36,7 @@ func TestSnapshotVisitorDo(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			b := &defaultFrictional{buffer: tc.initial}
+			b := &DefaultFrictional{value: tc.initial}
 			s := &SnapshotVisitor{}
 			s.Do(b)
 			if !s.buffer.Equal(tc.expected) {
@@ -110,7 +110,7 @@ func BenchmarkSnapshotVisitorDo(b *testing.B) {
 
 	for _, tc := range testCases {
 		b.Run(tc.name, func(b *testing.B) {
-			bg := &defaultFrictional{buffer: tc.initial}
+			bg := &DefaultFrictional{value: tc.initial}
 			s := &SnapshotVisitor{}
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
