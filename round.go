@@ -13,5 +13,5 @@ func NewRound(scale int32) Round {
 }
 
 func (r Round) Do(b Frictional) {
-	b.set(b.Buffer().Round(r.scale))
+	b.set(b.Value().Round(r.scale))
 }

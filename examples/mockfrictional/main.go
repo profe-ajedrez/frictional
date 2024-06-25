@@ -1,3 +1,4 @@
+// Package mockfrictional is a mock implementation of the Frictional interface.
 package mockfrictional
 
 import (

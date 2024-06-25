@@ -29,7 +29,7 @@ func NewUnitValue(qty alpacadecimal.Decimal) *UnitValue {
 
 func (q *UnitValue) Do(b Frictional) {
 	if q.qty.GreaterThan(alpacadecimal.Zero) {
-		q.unitValue = b.Buffer().Div(q.qty)
+		q.unitValue = b.Value().Div(q.qty)
 		b.set(q.unitValue.Copy())
 	}
 }

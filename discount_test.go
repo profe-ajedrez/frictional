@@ -20,8 +20,8 @@ func TestDiscount(t *testing.T) {
 			t.FailNow()
 		}
 
-		if !shouldFail && !b.buffer.Equal(tc.expecteds.buffer) {
-			t.Logf("[FAIL test case %d %s] got frictional.buffer %v. Expected %v", i, tc.name, b.buffer, tc.expecteds.buffer)
+		if !shouldFail && !b.value.Equal(tc.expecteds.value) {
+			t.Logf("[FAIL test case %d %s] got frictional.buffer %v. Expected %v", i, tc.name, b.value, tc.expecteds.value)
 			t.FailNow()
 		}
 
@@ -101,9 +101,9 @@ var testCasesDiscounts = []struct {
 			Discount
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
+				DefaultFrictional: &DefaultFrictional{
 					// expected buffer should be 90% of entryValue, because discount is 10%
-					buffer: unsafeDecFromStr("3.453561112").Mul(unsafeDecFromStr("0.9")),
+					value: unsafeDecFromStr("3.453561112").Mul(unsafeDecFromStr("0.9")),
 				},
 			},
 			Discount: Discount{
@@ -129,8 +129,8 @@ var testCasesDiscounts = []struct {
 			Discount
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("3.453561112").Sub(udfs("1.834566333")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("3.453561112").Sub(udfs("1.834566333")),
 				},
 			},
 			Discount: Discount{
@@ -170,8 +170,8 @@ var testCasesDiscounts = []struct {
 			Discount
 		}{
 			FromUnitValue: FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("100.123").Mul(udfs("0.9")).Mul(udfs("10")).Mul(udfs("0.85")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("100.123").Mul(udfs("0.9")).Mul(udfs("10")).Mul(udfs("0.85")),
 				},
 			},
 			Discount: Discount{

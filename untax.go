@@ -20,7 +20,7 @@ func NewPercentualUnTax(ratio alpacadecimal.Decimal) *PercentualUntax {
 func (pu *PercentualUntax) Do(b Frictional) {
 	ratio := pu.ratio.Div(HundredValue)
 	b.Div(One.Add(ratio))
-	pu.amount = b.Buffer().Mul(ratio)
+	pu.amount = b.Value().Mul(ratio)
 }
 
 type AmountUntax struct {
@@ -37,5 +37,5 @@ func NewAmountUnTax(amount alpacadecimal.Decimal) *AmountUntax {
 
 func (pu *AmountUntax) Do(b Frictional) {
 	b.Sub(pu.amount)
-	pu.ratio = pu.amount.Mul(HundredValue).Div(b.Buffer())
+	pu.ratio = pu.amount.Mul(HundredValue).Div(b.Value())
 }

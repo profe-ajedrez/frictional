@@ -22,8 +22,8 @@ func (u *PercentualUndiscount) Do(b Frictional) {
 		return
 	}
 
-	b.set(b.Buffer().Div(HundredValue.Sub(u.ratio)).Mul(HundredValue))
-	u.amount = b.Buffer().Mul(u.ratio.Div(HundredValue))
+	b.set(b.Value().Div(HundredValue.Sub(u.ratio)).Mul(HundredValue))
+	u.amount = b.Value().Mul(u.ratio.Div(HundredValue))
 }
 
 type AmountUndiscount struct {
@@ -40,5 +40,5 @@ func NewAmountUnDiscount(amount alpacadecimal.Decimal) *AmountUndiscount {
 
 func (u *AmountUndiscount) Do(b Frictional) {
 	b.Add(u.amount)
-	u.ratio = u.amount.Mul(HundredValue).Div(b.Buffer())
+	u.ratio = u.amount.Mul(HundredValue).Div(b.Value())
 }

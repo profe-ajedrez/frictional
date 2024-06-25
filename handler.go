@@ -4,36 +4,37 @@ import "github.com/alpacahq/alpacadecimal"
 
 var _ Visitor = &TaxHandlerFromUnitValue{}
 
-type taxHandler struct {
+// TaxHandler lets apply many taxes over the save Frictional value
+type TaxHandler struct {
 	totalRatio  alpacadecimal.Decimal
 	totalAmount alpacadecimal.Decimal
 	taxable     alpacadecimal.Decimal
 }
 
-func NewTaxHandler() *taxHandler {
-	return &taxHandler{}
+func NewTaxHandler() *TaxHandler {
+	return &TaxHandler{}
 }
 
-func (t *taxHandler) WithPercentualTax(value alpacadecimal.Decimal) {
+func (t *TaxHandler) WithPercentualTax(value alpacadecimal.Decimal) {
 	t.totalRatio = t.totalRatio.Add(value)
 }
 
-func (t *taxHandler) WithAmountTax(value alpacadecimal.Decimal) {
+func (t *TaxHandler) WithAmountTax(value alpacadecimal.Decimal) {
 	t.totalAmount = t.totalAmount.Add(value)
 }
 
 type TaxHandlerFromUnitValue struct {
-	*taxHandler
+	*TaxHandler
 }
 
 func NewTaxHandlerFromUnitValue() *TaxHandlerFromUnitValue {
 	return &TaxHandlerFromUnitValue{
-		taxHandler: NewTaxHandler(),
+		TaxHandler: NewTaxHandler(),
 	}
 }
 
 func (t *TaxHandlerFromUnitValue) Do(b Frictional) {
-	t.taxable = b.Buffer().Copy()
+	t.taxable = b.Value()
 
 	t1 := NewPercTax(t.totalRatio)
 
@@ -57,36 +58,36 @@ func (t *TaxHandlerFromUnitValue) TotalAmount() alpacadecimal.Decimal {
 	return t.totalAmount.Copy()
 }
 
-type discountHandler struct {
+type DiscountHandler struct {
 	totalRatio   alpacadecimal.Decimal
 	totalAmount  alpacadecimal.Decimal
 	discountable alpacadecimal.Decimal
 }
 
-func NewDiscountHandler() *discountHandler {
-	return &discountHandler{}
+func NewDiscountHandler() *DiscountHandler {
+	return &DiscountHandler{}
 }
 
-func (t *discountHandler) WithPercentualDiscount(value alpacadecimal.Decimal) {
+func (t *DiscountHandler) WithPercentualDiscount(value alpacadecimal.Decimal) {
 	t.totalRatio = t.totalRatio.Add(value)
 }
 
-func (t *discountHandler) WithAmountDiscount(value alpacadecimal.Decimal) {
+func (t *DiscountHandler) WithAmountDiscount(value alpacadecimal.Decimal) {
 	t.totalAmount = t.totalAmount.Add(value)
 }
 
 type DiscountHandlerFromUnitValue struct {
-	*discountHandler
+	*DiscountHandler
 }
 
 func NewDiscHandlerFromUnitValue() *DiscountHandlerFromUnitValue {
 	return &DiscountHandlerFromUnitValue{
-		discountHandler: NewDiscountHandler(),
+		DiscountHandler: NewDiscountHandler(),
 	}
 }
 
 func (t *DiscountHandlerFromUnitValue) Do(b Frictional) {
-	t.discountable = b.Buffer().Copy()
+	t.discountable = b.Value().Copy()
 
 	t1 := NewPercentualDiscount(t.totalRatio)
 

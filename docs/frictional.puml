@@ -1,0 +1,212 @@
+@startuml
+namespace frictional {
+    class AmountDiscount << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class AmountTax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class AmountUndiscount << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class AmountUntax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    interface Arithmetic  {
+        + Add( alpacadecimal.Decimal) 
+        + Sub( alpacadecimal.Decimal) 
+        + Mul( alpacadecimal.Decimal) 
+        + Div( alpacadecimal.Decimal) 
+
+    }
+    class DefaultFrictional << (S,Aquamarine) >> {
+        - value alpacadecimal.Decimal
+
+        - set(buffer alpacadecimal.Decimal) 
+
+        + Value() alpacadecimal.Decimal
+        + Add(v alpacadecimal.Decimal) 
+        + Sub(v alpacadecimal.Decimal) 
+        + Mul(v alpacadecimal.Decimal) 
+        + Div(v alpacadecimal.Decimal) 
+        + Reset() 
+        + String() string
+        + Bind(e Visitor) 
+        + Snapshot() alpacadecimal.Decimal
+        + Restore(s alpacadecimal.Decimal) 
+
+    }
+    class Discount << (S,Aquamarine) >> {
+        - ratio alpacadecimal.Decimal
+        - amount alpacadecimal.Decimal
+
+        + Ratio() alpacadecimal.Decimal
+        + Amount() alpacadecimal.Decimal
+        + String() string
+
+    }
+    class DiscountHandler << (S,Aquamarine) >> {
+        - totalRatio alpacadecimal.Decimal
+        - totalAmount alpacadecimal.Decimal
+        - discountable alpacadecimal.Decimal
+
+        + WithPercentualDiscount(value alpacadecimal.Decimal) 
+        + WithAmountDiscount(value alpacadecimal.Decimal) 
+
+    }
+    class DiscountHandlerFromUnitValue << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+        + Discountable() alpacadecimal.Decimal
+        + TotalRatio() alpacadecimal.Decimal
+        + TotalAmount() alpacadecimal.Decimal
+
+    }
+    interface Frictional  {
+        - set( alpacadecimal.Decimal) 
+
+        + Bind( Visitor) 
+        + String() string
+        + Value() alpacadecimal.Decimal
+        + Reset() 
+        + Snapshot() alpacadecimal.Decimal
+        + Restore( alpacadecimal.Decimal) 
+
+    }
+    class FromBrute << (S,Aquamarine) >> {
+        + WithBrute(brute alpacadecimal.Decimal) *FromBrute
+
+    }
+    class FromUnitValue << (S,Aquamarine) >> {
+    }
+    class PercTax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class PercentualDiscount << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class PercentualUndiscount << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class PercentualUntax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class Qty << (S,Aquamarine) >> {
+        - qty alpacadecimal.Decimal
+
+        + Do(b Frictional) 
+
+    }
+    class Round << (S,Aquamarine) >> {
+        - scale int32
+
+        + Do(b Frictional) 
+
+    }
+    class SnapshotVisitor << (S,Aquamarine) >> {
+        - buffer alpacadecimal.Decimal
+
+        + Do(b Frictional) 
+        + Get() alpacadecimal.Decimal
+
+    }
+    class Tax << (S,Aquamarine) >> {
+        - ratio alpacadecimal.Decimal
+        - amount alpacadecimal.Decimal
+        - taxable alpacadecimal.Decimal
+
+        + Amount() alpacadecimal.Decimal
+        + Ratio() alpacadecimal.Decimal
+        + Taxable() alpacadecimal.Decimal
+
+    }
+    class TaxHandler << (S,Aquamarine) >> {
+        - totalRatio alpacadecimal.Decimal
+        - totalAmount alpacadecimal.Decimal
+        - taxable alpacadecimal.Decimal
+
+        + WithPercentualTax(value alpacadecimal.Decimal) 
+        + WithAmountTax(value alpacadecimal.Decimal) 
+
+    }
+    class TaxHandlerFromUnitValue << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+        + Taxable() alpacadecimal.Decimal
+        + TotalRatio() alpacadecimal.Decimal
+        + TotalAmount() alpacadecimal.Decimal
+
+    }
+    class UnbufferedAmountTax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class UnbufferedPercTax << (S,Aquamarine) >> {
+        + Do(b Frictional) 
+
+    }
+    class UnitValue << (S,Aquamarine) >> {
+        - qty alpacadecimal.Decimal
+        - unitValue alpacadecimal.Decimal
+
+        + Do(b Frictional) 
+        + Get() alpacadecimal.Decimal
+        + Round(sc int32) 
+
+    }
+    class ValueType << (S,Aquamarine) >> {
+        + String() string
+        + IsPercentual() bool
+        + IsAmount() bool
+
+    }
+    interface Visitor  {
+        + Do( Frictional) 
+
+    }
+    class frictional.ValueType << (T, #FF7700) >>  {
+    }
+}
+"frictional.Discount" *-- "frictional.AmountDiscount"
+"frictional.Tax" *-- "frictional.AmountTax"
+"frictional.Discount" *-- "frictional.AmountUndiscount"
+"frictional.Tax" *-- "frictional.AmountUntax"
+"frictional.DiscountHandler" *-- "frictional.DiscountHandlerFromUnitValue"
+"frictional.Arithmetic" *-- "frictional.Frictional"
+"frictional.DefaultFrictional" *-- "frictional.FromBrute"
+"frictional.DefaultFrictional" *-- "frictional.FromUnitValue"
+"frictional.Tax" *-- "frictional.PercTax"
+"frictional.Discount" *-- "frictional.PercentualDiscount"
+"frictional.Discount" *-- "frictional.PercentualUndiscount"
+"frictional.Tax" *-- "frictional.PercentualUntax"
+"frictional.TaxHandler" *-- "frictional.TaxHandlerFromUnitValue"
+"frictional.Tax" *-- "frictional.UnbufferedAmountTax"
+"frictional.Tax" *-- "frictional.UnbufferedPercTax"
+
+"frictional.Visitor" <|-- "frictional.AmountDiscount"
+"frictional.Visitor" <|-- "frictional.AmountTax"
+"frictional.Visitor" <|-- "frictional.AmountUndiscount"
+"frictional.Visitor" <|-- "frictional.AmountUntax"
+"frictional.Arithmetic" <|-- "frictional.DefaultFrictional"
+"frictional.Frictional" <|-- "frictional.DefaultFrictional"
+"frictional.Visitor" <|-- "frictional.DiscountHandlerFromUnitValue"
+"frictional.Visitor" <|-- "frictional.PercTax"
+"frictional.Visitor" <|-- "frictional.PercentualDiscount"
+"frictional.Visitor" <|-- "frictional.PercentualUndiscount"
+"frictional.Visitor" <|-- "frictional.PercentualUntax"
+"frictional.Visitor" <|-- "frictional.Qty"
+"frictional.Visitor" <|-- "frictional.Round"
+"frictional.Visitor" <|-- "frictional.SnapshotVisitor"
+"frictional.Visitor" <|-- "frictional.TaxHandlerFromUnitValue"
+"frictional.Visitor" <|-- "frictional.UnbufferedAmountTax"
+"frictional.Visitor" <|-- "frictional.UnbufferedPercTax"
+"frictional.Visitor" <|-- "frictional.UnitValue"
+
+"__builtin__.int8" #.. "frictional.ValueType"
+@enduml

@@ -20,8 +20,8 @@ func TestHandlerFromUnitValue(t *testing.T) {
 			continue
 		}
 
-		if !b.Buffer().Equal(tc.expected.Buffer()) {
-			t.Logf("[test %d FAILED] buffer. Got %v  Expected %v", i, b.Buffer(), tc.expected.Buffer())
+		if !b.Value().Equal(tc.expected.Value()) {
+			t.Logf("[test %d FAILED] buffer. Got %v  Expected %v", i, b.Value(), tc.expected.Value())
 			t.FailNow()
 		}
 
@@ -92,12 +92,12 @@ var testCaseTaxHandlerFromUnitValue = []struct {
 			*TaxHandlerFromUnitValue
 		}{
 			Frictional: &FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("232.5").Mul(udfs("3")).Mul(udfs("1.16")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("232.5").Mul(udfs("3")).Mul(udfs("1.16")),
 				},
 			},
 			TaxHandlerFromUnitValue: &TaxHandlerFromUnitValue{
-				taxHandler: &taxHandler{
+				TaxHandler: &TaxHandler{
 					totalRatio:  udfs("16"),
 					totalAmount: udfs("232.5").Mul(udfs("0.16")).Mul(udfs("3")),
 					taxable:     udfs("232.5").Mul(udfs("3")),
@@ -130,12 +130,12 @@ var testCaseTaxHandlerFromUnitValue = []struct {
 			*TaxHandlerFromUnitValue
 		}{
 			Frictional: &FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("100").Mul(udfs("2")).Mul(udfs("1.2")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("100").Mul(udfs("2")).Mul(udfs("1.2")),
 				},
 			},
 			TaxHandlerFromUnitValue: &TaxHandlerFromUnitValue{
-				taxHandler: &taxHandler{
+				TaxHandler: &TaxHandler{
 					totalRatio:  udfs("20"),
 					totalAmount: udfs("100").Mul(udfs("0.2")).Mul(udfs("2")),
 					taxable:     udfs("100").Mul(udfs("2")),
@@ -168,12 +168,12 @@ var testCaseTaxHandlerFromUnitValue = []struct {
 			*TaxHandlerFromUnitValue
 		}{
 			Frictional: &FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("50").Mul(udfs("4")).Mul(udfs("1.08")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("50").Mul(udfs("4")).Mul(udfs("1.08")),
 				},
 			},
 			TaxHandlerFromUnitValue: &TaxHandlerFromUnitValue{
-				taxHandler: &taxHandler{
+				TaxHandler: &TaxHandler{
 					totalRatio:  udfs("8"),
 					totalAmount: udfs("50").Mul(udfs("0.08")).Mul(udfs("4")),
 					taxable:     udfs("50").Mul(udfs("4")),
@@ -206,12 +206,12 @@ var testCaseTaxHandlerFromUnitValue = []struct {
 			*TaxHandlerFromUnitValue
 		}{
 			Frictional: &FromUnitValue{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("75.25").Mul(udfs("1.5")).Mul(udfs("1.125")),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("75.25").Mul(udfs("1.5")).Mul(udfs("1.125")),
 				},
 			},
 			TaxHandlerFromUnitValue: &TaxHandlerFromUnitValue{
-				taxHandler: &taxHandler{
+				TaxHandler: &TaxHandler{
 					totalRatio:  udfs("12.5"),
 					totalAmount: udfs("75.25").Mul(udfs("0.125")).Mul(udfs("1.5")),
 					taxable:     udfs("75.25").Mul(udfs("1.5")),

@@ -26,8 +26,8 @@ func TestFromBrute(t *testing.T) {
 			t.FailNow()
 		}
 
-		if !bg.buffer.Equal(tc.expected.bg.buffer) {
-			t.Logf("[test case %d] got buffer %v expected %v", i, bg.buffer, tc.expected.bg.buffer)
+		if !bg.value.Equal(tc.expected.bg.value) {
+			t.Logf("[test case %d] got buffer %v expected %v", i, bg.value, tc.expected.bg.value)
 			t.FailNow()
 		}
 	}
@@ -46,9 +46,9 @@ var testCasesFromBrute = []struct {
 	{
 		tester: func() (brute *SnapshotVisitor, net *SnapshotVisitor, netWD *SnapshotVisitor, unitValue *UnitValue, bg *FromBrute) {
 
-			brute = &SnapshotVisitor{}
-			net = &SnapshotVisitor{}
-			netWD = &SnapshotVisitor{}
+			brute = NewSnapshot()
+			net = NewSnapshot()
+			netWD = NewSnapshot()
 
 			bg = NewFromBruteDefault().WithBrute(udfs("1619.1"))
 
@@ -90,8 +90,8 @@ var testCasesFromBrute = []struct {
 				unitValue: udfs("465.258620689655"),
 			},
 			bg: &FromBrute{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("465.258620689655"),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("465.258620689655"),
 				},
 			},
 		},
@@ -142,8 +142,8 @@ var testCasesFromBrute = []struct {
 				unitValue: udfs("185.19"),
 			},
 			bg: &FromBrute{
-				defaultFrictional: &defaultFrictional{
-					buffer: udfs("185.19"),
+				DefaultFrictional: &DefaultFrictional{
+					value: udfs("185.19"),
 				},
 			},
 		},

@@ -43,51 +43,51 @@ Imagine the following case
 
 ```go
 func main() {
-// define entry values
-unitValue := udfs("1044.543103448276")
-qty := udfs("35157")
-percDiscount := udfs("10")
-amountLineDiscount := udfs("100")
-percTax := udfs("16")
-amountLineTax := qty.Div(HundredValue).Round(0).Mul(udfs("0.04"))
+	// define entry values
+	unitValue := udfs("1044.543103448276")
+	qty := udfs("35157")
+	percDiscount := udfs("10")
+	amountLineDiscount := udfs("100")
+	percTax := udfs("16")
+	amountLineTax := qty.Div(HundredValue).Round(0).Mul(udfs("0.04"))
 
-// define the buffer holder
-calc := NewFromUnitValue(unitValue)
+	// define the buffer holder
+	calc := NewFromUnitValue(unitValue)
 
-// define the visitors
-qtyVisitor := WithQTY(qty)
-percDiscVisitor := NewPercentualDiscount(percDiscount)
-amountDiscVisitor := NewAmountDiscount(amountLineDiscount)
-percTaxVisitor := NewUnbufferedPercTax(percTax)
-amountTaxVisitor := NewUnbufferedAmountTax(amountLineTax)
+	// define the visitors
+	qtyVisitor := WithQTY(qty)
+	percDiscVisitor := NewPercentualDiscount(percDiscount)
+	amountDiscVisitor := NewAmountDiscount(amountLineDiscount)
+	percTaxVisitor := NewUnbufferedPercTax(percTax)
+	amountTaxVisitor := NewUnbufferedAmountTax(amountLineTax)
 
-// make the visitors visite the buffer holder
-calc.Bind(qtyVisitor)
-calc.Bind(percDiscVisitor)
-calc.Bind(amountDiscVisitor)
-calc.Bind(percTaxVisitor)
-calc.Bind(amountTaxVisitor)
+	// make the visitors visite the buffer holder
+	calc.Bind(qtyVisitor)
+	calc.Bind(percDiscVisitor)
+	calc.Bind(amountDiscVisitor)
+	calc.Bind(percTaxVisitor)
+	calc.Bind(amountTaxVisitor)
 
-net = calc.Snapshot()
+	net = calc.Snapshot()
 
-calc.Add(percTaxVisitor.Amount())
-calc.Add(amountTaxVisitor.Amount())
+	calc.Add(percTaxVisitor.Amount())
+	calc.Add(amountTaxVisitor.Amount())
 
-brute = calc.Snapshot()
+	brute = calc.Snapshot()
 
-totalTaxes = percTaxVisitor.Amount().Add(amountTaxVisitor.Amount())
-totalDiscounts = percDiscVisitor.Amount().Add(amountDiscVisitor.Amount())
+	totalTaxes = percTaxVisitor.Amount().Add(amountTaxVisitor.Amount())
+	totalDiscounts = percDiscVisitor.Amount().Add(amountDiscVisitor.Amount())
 
-fmt.Printf("net: %v", net)
-fmt.Printf("brute: %v", brute)
-fmt.Printf("totalTaxes: %v", totalTaxes)
-fmt.Printf("totalDiscounts: %v", totalDiscounts)
+	fmt.Printf("net: %v", net)
+	fmt.Printf("brute: %v", brute)
+	fmt.Printf("totalTaxes: %v", totalTaxes)
+	fmt.Printf("totalDiscounts: %v", totalDiscounts)
 
-// Output:
-// net:            udfs("33050601.6991379353988"),
-// brute:          udfs("38338712.051000005062608"),
-// totalTaxes:     udfs("5288110.351862069663808"),
-// totalDiscounts: udfs("3672400.1887931039332"),
+	// Output:
+	// net:            udfs("33050601.6991379353988"),
+	// brute:          udfs("38338712.051000005062608"),
+	// totalTaxes:     udfs("5288110.351862069663808"),
+	// totalDiscounts: udfs("3672400.1887931039332"),
 }
 
 

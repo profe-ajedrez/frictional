@@ -79,11 +79,48 @@ func ExampleFromBrute() {
 	unitValue.Round(12)
 
 	// Print the results
-	fmt.Printf("Brute value: %v\nNet value: %v\nNet rounded: %v\nNet value with discount: %v\nUnit value: %v\nBuffer value: %v", brute.Get().String(), net.Get().String(), netRounded.String(), netWD.Get().String(), unitValue.Get().String(), bg.Buffer().String())
+	fmt.Printf("Brute value: %v\nNet value: %v\nNet rounded: %v\nNet value with discount: %v\nUnit value: %v\nBuffer value: %v", brute.Get().String(), net.Get().String(), netRounded.String(), netWD.Get().String(), unitValue.Get().String(), bg.Value().String())
 	// Output: Brute value: 1619.1
 	// Net value: 1395.7758620689655172
 	// Net rounded: 1395.775862
 	// Net value with discount: 1395.7758620689655172
 	// Unit value: 465.258620689655
 	// Buffer value: 465.258620689655
+}
+
+func ExampleTaxHandler() {
+	entry := udfs("75.25")
+	b := frictional.NewFromUnitValue(entry)
+
+	b.Bind(frictional.WithQTY(udfs("1.5")))
+
+	th := frictional.NewTaxHandlerFromUnitValue()
+	th.WithPercentualTax(udfs("12.5"))
+
+	net := frictional.SnapshotVisitor{}
+	net.Do(b)
+
+	th.Do(b)
+
+	brute := frictional.SnapshotVisitor{}
+	brute.Do(b)
+
+	fmt.Printf("Entry value: %v\n", entry)
+	fmt.Printf("Quantity: %v\n", udfs("1.5"))
+	fmt.Printf("Tax rate: %v%%\n", udfs("12.5"))
+	fmt.Printf("Net value (before tax): %v\n", net.Get())
+	fmt.Printf("Brute value (after tax): %v\n", brute.Get())
+	fmt.Printf("Total tax ratio: %v\n", th.TotalRatio())
+	fmt.Printf("Total tax amount: %v\n", th.TotalAmount())
+	fmt.Printf("Taxable amount: %v\n", th.Taxable())
+
+	// Output:
+	// Entry value: 75.25
+	// Quantity: 1.5
+	// Tax rate: 12.5%
+	// Net value (before tax): 112.875
+	// Brute value (after tax): 126.984375
+	// Total tax ratio: 12.5
+	// Total tax amount: 14.109375
+	// Taxable amount: 112.875
 }
