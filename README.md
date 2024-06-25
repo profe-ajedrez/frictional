@@ -143,3 +143,6 @@ func unsafeDecFromStr(d string) alpacadecimal.Decimal {
 
 See the [examples](examples) folder for more usage examples.
 
+## Warning
+
+Most of the visitors provided by this library do not perform any validation. For example, Tax and its derivatives do not verify that the ratio is greater than zero, which could cause a panic due to division by zero. This is a conscious decision, we leave it to the user to worry about whether the values ​​are valid.
